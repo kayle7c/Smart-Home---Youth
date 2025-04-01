@@ -51,6 +51,14 @@ class MyClient(botpy.Client):
                 content=f"已关闭窗帘")
                 _log.info(messageResult)
 
+	    if message.content == " /查询作业 " :
+                messageResult = await message._api.post_group_message(
+                group_openid=message.group_openid,
+                msg_type=0, 
+                msg_id=message.id,
+                content=f"xxxx")
+                _log.info(messageResult)
+
 if __name__ == "__main__":
     intents = botpy.Intents(public_messages=True)
     client = MyClient(intents=intents)
