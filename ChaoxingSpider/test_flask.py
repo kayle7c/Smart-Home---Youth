@@ -2,8 +2,8 @@ import requests
 
 if __name__ == '__main__':
     parms = {
-        'username': '18976992105',
-        'password': '20040415fys',
+        'username': '<YOUR USERNAME>',
+        'password': '<YOURE PASSWOER>',
     }
     headers = {
         'Content-Type': 'application/json',

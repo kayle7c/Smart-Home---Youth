@@ -64,7 +64,7 @@ class ChaoxingSpider(object):
 
 if __name__ == '__main__':
     spider = ChaoxingSpider()
-    spider.login('18976992105','20040415fys')
+    spider.login('<YOUR USERNAME>','<YOURE PASSWOER>')
     unfi_work = spider.parse()
     json.dump(unfi_work, open('unfi_work.json', 'w'))
 
