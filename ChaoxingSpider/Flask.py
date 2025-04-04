@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from chaoxingSpider import ChaoxingSpider  # 假设 ChaoxingSpider 在 your_spider_module 模块中
+from chaoxingSpider import ChaoxingSpider  
 import json
 
 app = Flask(__name__)

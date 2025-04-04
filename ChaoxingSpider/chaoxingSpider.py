@@ -11,19 +11,43 @@ class ChaoxingSpider(object):
         self.result = []
 
         self.headers = {
-            'user-agent' : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36 Edg/134.0.0.0"
-        }
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+            'Accept-Encoding': 'gzip, deflate, br, zstd',
+            'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+            'Connection': 'keep-alive',
+            'Referer': 'https://passport2.chaoxing.com/',
+            'Host' : 'passport2.chaoxing.com',
+            # 'Sec-CH-UA': '"Chromium";v="134", "Not:A-Brand";v="24", "Google Chrome";v="134"',
+            # 'Sec-CH-UA-Mobile': '?0',
+            # 'Sec-CH-UA-Platform': '"Windows"',
+            # 'Sec-Fetch-Dest': 'document',
+            # 'Sec-Fetch-Mode': 'navigate',
+            # 'Sec-Fetch-Site': 'same-site',
+            # 'Sec-Fetch-User': '?1',
+            # 'Upgrade-Insecure-Requests': '1',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36'
+}
 
     def login(self,uname,passowrd):
         parms = {
             'fid':'-1',
             'uname':uname,
             'password':passowrd,
-            'refer':'https%253A%252F%252Fi.chaoxing.com'
+            'refer':'https://passport2.chaoxing.com/'
 
         }
-        resp = self.session.post(self.login_url,params=parms,headers=self.headers,verify=False)
+        # self.session.get("https://mooc1-api.chaoxing.com/",allow_redirects=False)
+        # if resp.status_code != 200:
+        #     raise Exception(f"Init failed with status code: {resp.status_code} {resp.headers.get('Location')}")
+
+        resp = self.session.post(self.login_url,params=parms,headers=self.headers,verify=False,allow_redirects=False,proxies = '111.1.61.50')
+        if resp.status_code != 200:
+            raise Exception(f"Login failed with status code: {resp.status_code} {resp.headers.get('Location')}")
+
         resp = self.session.get(self.work_url,headers=self.headers, verify=False)
+        if resp.status_code != 200:
+            raise Exception(f"Failed to fetch work list with status code: {resp.status_code}")
+    
         self.html = resp.text
         # print(self.html)
 
@@ -64,9 +88,7 @@ class ChaoxingSpider(object):
 
 if __name__ == '__main__':
     spider = ChaoxingSpider()
-    spider.login('<YOUR USERNAME>','<YOURE PASSWOER>')
+    spider.login('18976992105','20040415fys')
     unfi_work = spider.parse()
+    print(unfi_work)
     json.dump(unfi_work, open('unfi_work.json', 'w'))
-
-
-

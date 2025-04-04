@@ -6,6 +6,7 @@ import botpy
 from botpy import logging
 from botpy.ext.cog_yaml import read
 from botpy.message import GroupMessage, Message
+from xuexitong import get_unfinished_homework
 
 test_config = read(os.path.join(os.path.dirname(__file__), "config.yaml"))
 
@@ -51,12 +52,14 @@ class MyClient(botpy.Client):
                 content=f"已关闭窗帘")
                 _log.info(messageResult)
 
-	    if message.content == " /查询作业 " :
+            if message.content == " /查询未完成作业 " :
+                rezult = ''
+                #rezult = get_unfinished_homework()
                 messageResult = await message._api.post_group_message(
                 group_openid=message.group_openid,
                 msg_type=0, 
                 msg_id=message.id,
-                content=f"xxxx")
+                content=rezult)
                 _log.info(messageResult)
 
 if __name__ == "__main__":

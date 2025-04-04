@@ -8,7 +8,6 @@ def get_unfinished_homework():
     }
     headers = {
         'Content-Type': 'application/json',
-        "User-Agent" : "User-Agent:Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0;"
     }
     result = ""
     resp = requests.post('http://127.0.0.1:5000/work',params=parms,headers=headers,verify=False)
@@ -26,7 +25,6 @@ def get_unfinished_homework():
             result += f"状态: {status}\n"
             result += f"作业名称: {work_name}\n"
             result += "-" * 50 + "\n"  # 分隔线
-    print(rezult)
+
     return result
 
-get_unfinished_homework()
